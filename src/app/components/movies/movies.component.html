@@ -1,0 +1,7 @@
+<div *ngFor="let pelicula of peliculas">
+    <h3>{{ pelicula.titulo }}</h3>
+    <p>{{ pelicula.descripcion }}</p>
+    <p>Duración: {{ pelicula.duracion }} minutos</p>
+    <p>Género: {{ pelicula.genero }}</p>
+    <img [src]="pelicula.imagenUrl" alt="Imagen de la película" width="200" height="300">
+  </div>

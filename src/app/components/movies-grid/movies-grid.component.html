@@ -1,0 +1,20 @@
+<div class="moviegrid">
+    <div class="row">
+      <div *ngFor="let movie of movies" class="moviegrid-item col-md-{{ 12 / columns }}">
+        <a href="javascript:void(0)" class="moviegrid-play-trailer" (click)="openModal(preview)"></a>
+        <a routerLink="/movie/{{ movie.movieId }}">
+          <img src="{{ movie.posterImage }}" alt="{{ movie.title }}" class="moviegrid-poster img-fluid" />
+          <span class="moviegrid-title">{{ movie.title }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #preview>
+    <div class="modal-body">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </ng-template>
+  

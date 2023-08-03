@@ -1,7 +1,5 @@
-<div *ngFor="let pelicula of peliculas">
-    <h3>{{ pelicula.titulo }}</h3>
-    <p>{{ pelicula.descripcion }}</p>
-    <p>Duración: {{ pelicula.duracion }} minutos</p>
-    <p>Género: {{ pelicula.genero }}</p>
-    <img [src]="pelicula.imagenUrl" alt="Imagen de la película" width="200" height="300">
-  </div>
+<div *ngFor="let movie of movies">
+  <h3>{{ movie.title }}</h3>
+  <p>Genre: {{ movie.genre }}</p>
+  <img [src]="movie.posterImage" alt="Movie image" width="200" height="300">
+</div>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Ticket } from '../models/ticket.model';
+import { PurchaseTicket } from '../models/purchaseTicket.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class TicketsService {
 
   constructor(private http: HttpClient) { }
 
-  comprarTickets(ticket: Ticket): Observable<Ticket> {
-    return this.http.post<Ticket>(this.apiUrl, ticket);
+  purchaseTickets(ticket: PurchaseTicket): Observable<PurchaseTicket> {
+    return this.http.post<PurchaseTicket>(this.apiUrl, ticket);
   }
 }

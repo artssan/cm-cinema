@@ -12,9 +12,10 @@ export class TicketsComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private ticketsService: TicketsService) {
     this.ticketForm = this.formBuilder.group({
-      funcionId: ['', Validators.required],
-      cantidad: ['', [Validators.required, Validators.min(1)]],
-      total: ['', Validators.required]
+      functionId: ['', Validators.required],
+      numberOfTickets: ['', [Validators.required, Validators.min(1)]],
+      username: ['', Validators.required],
+      userEmail: ['', Validators.required]
     });
   }
 
@@ -25,7 +26,7 @@ export class TicketsComponent implements OnInit {
   onSubmit(): void {
     if (this.ticketForm.valid) {
       const ticket = this.ticketForm.value;
-      this.ticketsService.comprarTickets(ticket).subscribe(
+      this.ticketsService.purchaseTickets(ticket).subscribe(
         (response) => {
           // Manejar respuesta exitosa, por ejemplo, mostrar mensaje de compra exitosa
         },

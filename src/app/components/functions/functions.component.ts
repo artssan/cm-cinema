@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { Funcion } from '../../models/funcion.model';
-import { FuncionesService } from '../../services/funciones.service';
+import { Function } from '../../models/function.model';
+import { FunctionsService } from '../../services/functions.service';
 
 @Component({
-  selector: 'app-funciones',
-  templateUrl: './funciones.component.html',
-  styleUrls: ['./funciones.component.css']
+  selector: 'app-functions',
+  templateUrl: './functions.component.html',
+  styleUrls: ['./functions.component.css']
 })
-export class FuncionesComponent implements OnInit {
-  funciones: Funcion[];
+export class FunctionsComponent implements OnInit {
+  functions: Function[] | undefined;
 
-  constructor(private funcionesService: FuncionesService) { }
+  constructor(private functionsService: FunctionsService) { }
 
   ngOnInit(): void {
-    this.funcionesService.getFunciones().subscribe((funciones) => {
-      this.funciones = funciones;
+    this.functionsService.getFunctions().subscribe((functions) => {
+      this.functions = functions;
     });
   }
 }

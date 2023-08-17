@@ -5,5 +5,7 @@ export interface Movie {
   genre: string;
   director: string;
   cast: string;
+  description: string;
   posterImage: string;
+  backgroundImage: string;
 }

@@ -3,5 +3,5 @@ export interface Function {
   movieId: number;
   price: number;
   seatsNumber: number;
-  functionDate: Date;
+  functionDate: any;
 }

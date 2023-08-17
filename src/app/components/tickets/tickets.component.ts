@@ -1,39 +1,84 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TicketsService } from '../../services/tickets.service';
+import { Movie } from 'src/app/models/movie.model';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { PurchaseTicket } from 'src/app/models/purchaseTicket.model';
+import { TicketsService } from 'src/app/services/tickets.service';
+import { Function } from 'src/app/models/function.model';
+import { MoviesService } from 'src/app/services/movies.service';
+import { FunctionsService } from 'src/app/services/functions.service';
 
 @Component({
   selector: 'app-tickets',
   templateUrl: './tickets.component.html',
-  styleUrls: ['./tickets.component.css']
+  styleUrls: ['./tickets.component.scss']
 })
 export class TicketsComponent implements OnInit {
-  ticketForm: FormGroup;
+  addOrderForm: PurchaseTicket = {
+    movieId: 0,
+    functionId: 0,
+    numberOfTickets: 0,
+    username: '',
+    userEmail: ''
+  }
 
-  constructor(private formBuilder: FormBuilder, private ticketsService: TicketsService) {
-    this.ticketForm = this.formBuilder.group({
-      functionId: ['', Validators.required],
-      numberOfTickets: ['', [Validators.required, Validators.min(1)]],
-      username: ['', Validators.required],
-      userEmail: ['', Validators.required]
+  optionsMovie: Movie[] | undefined;
+  optionsFunction: Function[] | undefined;
+
+  selectedMovie: string = '';
+  selectedFunction: string = '';
+
+  @ViewChild("orderForm")
+  orderForm!: NgForm;
+  isSubmitted: boolean = false;
+
+  constructor(private ticketsService: TicketsService, private functionsService: FunctionsService, private toastr: ToastrService, private moviesService: MoviesService) { }
+
+  ngOnInit(): void { 
+    this.getMovies();
+  }
+
+  getMovies(): void {
+    this.moviesService.getMovies().subscribe((movies) => {
+      this.optionsMovie = movies;
     });
   }
 
-  ngOnInit(): void {
-    // Inicializar datos necesarios, por ejemplo, cargar funciones disponibles
+  getFunctionsByMovieId(movieId: number): void {
+    this.functionsService.getFunctionsByMovieId(movieId).subscribe((functions) => {
+      if (functions != null) {
+        this.optionsFunction = functions;
+      }
+    });
   }
 
-  onSubmit(): void {
-    if (this.ticketForm.valid) {
-      const ticket = this.ticketForm.value;
-      this.ticketsService.purchaseTickets(ticket).subscribe(
-        (response) => {
-          // Manejar respuesta exitosa, por ejemplo, mostrar mensaje de compra exitosa
-        },
-        (error) => {
-          // Manejar error, por ejemplo, mostrar mensaje de error al comprar tickets
+  addOrder(isValid: any) {
+    this.isSubmitted = true;
+    if (isValid) {
+      this.ticketsService.purchaseTickets(this.addOrderForm).subscribe(async data => {
+        if (data != null) {
+          if (data.isSuccessful) {
+            this.toastr.success(data.message);
+            setTimeout(() => {
+              window.location.reload();
+            }, 1500);
+          } else {
+            this.toastr.error(data.message);
+          }
         }
-      );
+      });
+    }
+  }
+
+  onMovieSelected(event: any): void {
+    var movie = this.optionsMovie?.find(x => x.title === this.selectedMovie);
+    this.getFunctionsByMovieId(movie!.movieId);
+  }
+
+  onFunctionSelected(event: any): void {
+    if (this.optionsFunction != null) {
+      var func = this.optionsFunction.find(x => x.functionDate.toString() === this.selectedFunction);
+      this.addOrderForm.functionId = func!.functionId;
     }
   }
 }

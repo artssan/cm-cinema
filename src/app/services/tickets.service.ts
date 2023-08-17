@@ -7,11 +7,11 @@ import { PurchaseTicket } from '../models/purchaseTicket.model';
   providedIn: 'root'
 })
 export class TicketsService {
-  private apiUrl = 'https://tu-web-api.com/tickets'; // Reemplaza con la URL correcta de la API
+  private apiUrl = 'https://localhost:7094/api/ticketpurchase';
 
   constructor(private http: HttpClient) { }
 
-  purchaseTickets(ticket: PurchaseTicket): Observable<PurchaseTicket> {
-    return this.http.post<PurchaseTicket>(this.apiUrl, ticket);
+  purchaseTickets(ticket: PurchaseTicket): Observable<any> {
+    return this.http.post<any>(this.apiUrl, ticket);
   }
 }

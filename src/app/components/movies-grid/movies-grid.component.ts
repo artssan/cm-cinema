@@ -1,7 +1,6 @@
 import { Movie } from 'src/app/models/movie.model';
 import { MoviesService } from 'src/app/services/movies.service';
-import { Component, OnInit, Input, TemplateRef } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, OnInit, Input, TemplateRef, numberAttribute } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -10,23 +9,23 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
   styleUrls: ['./movies-grid.component.sass']
 })
 export class MoviesGridComponent implements OnInit {
-  limit: number = 8;
-  columns: number = 4;
+  @Input
+  ({ transform: numberAttribute }) limit: number = 8;
+  @Input
+  ({ transform: numberAttribute }) columns: number = 4;
+  @Input
+  ({ transform: numberAttribute }) exclude: number = 0;
+  
   movies!: Movie[];
   modalRef!: BsModalRef;
 
-  constructor(private moviesService: MoviesService, private modalService: BsModalService, private sanitizer: DomSanitizer) { }
+  constructor(private moviesService: MoviesService, private modalService: BsModalService) { }
 
   ngOnInit() {
     this.getMovies();
   }
 
   getMovies() {
-    this.moviesService.getMovies(this.limit).subscribe(movies => this.movies = movies);;
-  }
-
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
-    this.modalRef.setClass('modal-lg');
+    this.moviesService.getMovies(this.limit, this.exclude).subscribe(movies => this.movies = movies);;
   }
 }

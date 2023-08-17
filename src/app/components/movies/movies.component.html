@@ -1,5 +1,3 @@
-<div *ngFor="let movie of movies">
-  <h3>{{ movie.title }}</h3>
-  <p>Genre: {{ movie.genre }}</p>
-  <img [src]="movie.posterImage" alt="Movie image" width="200" height="300">
+<div class="container py-5">
+  <app-movies-list></app-movies-list>
 </div>

@@ -1,0 +1,24 @@
+<div class="movielist">
+    <div class="movielist-data my-5 pb-5 row" *ngFor="let movie of movies">
+      <div class="col-md-3">
+        <div class="movielist-poster">
+          <a routerLink="/movie/{{ movie.movieId }}"
+            ><img class="img-fluid" src="{{ movie.posterImage }}" alt="{{ movie.title }}"
+          /></a>
+        </div>
+      </div>
+      <div class="movielist-info col-md-9">
+        <a routerLink="/movie/{{ movie.movieId }}" class="subtitle h3">{{
+          movie.title
+        }}</a>
+        <p class="movielist-overview">{{ movie.description }}</p>
+        <div class="movielist-meta">
+          <dl class="movielist-meta-cast">
+            <dt>Starring:</dt>
+            <dd>{{ movie.cast }}</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+</div>
+  

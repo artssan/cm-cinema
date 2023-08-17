@@ -1,0 +1,87 @@
+<div class="container-xl">
+    <div class="table-responsive">
+      <div class="table-wrapper">
+        <div class="table-title">
+          <div class="row">
+            <div class="col-sm-6">
+              <h4><b>New Function</b></h4>
+            </div>
+            <div class="col-sm-6">
+              <a href="#" routerLink="/manage-functions" class="btn btn-success back"><i class='fas fa-arrow-circle-left'></i>
+                 Back</a>
+            </div>
+          </div>
+        </div>
+        <form #functionForm="ngForm">
+          <div class="table-content">
+            <div class="form-group p-10 row">
+              <div class="col-sm-3">
+                <label for="MovieId" class="p-t-b-10">Movie Id<span class="requiredStar">*</span></label>
+              </div>
+              <div class="col-sm-9">
+                <input type="number" class="form-control" id="MovieId" required
+                  [(ngModel)]="addFunctionForm.movieId" name="MovieId" #MovieId="ngModel">
+                <div *ngIf="MovieId.errors && isSubmitted" class="alert alert-danger validationError">
+                  <div [hidden]="!MovieId.errors['required']">
+                    MovieId is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group p-10 row">
+              <div class="col-sm-3">
+                <label for="Price" class="p-t-b-10">Price<span class="requiredStar">*</span></label>
+              </div>
+              <div class="col-sm-9">
+                <input type="number" class="form-control" id="Price" required maxlength="4"
+                  [(ngModel)]="addFunctionForm.price" name="Price" #Price="ngModel">
+                <div *ngIf="Price.errors && isSubmitted" class="alert alert-danger validationError">
+                  <div [hidden]="!Price.errors['required']">
+                    Price is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group p-10 row">
+              <div class="col-sm-3">
+                <label class="p-t-b-10">Seats Number<span class="requiredStar">*</span></label>
+              </div>
+              <div class="col-sm-9">
+                <input type="number" class="form-control" id="SeatsNumber" required maxlength="10"
+                  [(ngModel)]="addFunctionForm.seatsNumber" name="SeatsNumber" #SeatsNumber="ngModel">
+                <div *ngIf="SeatsNumber.errors && isSubmitted" class="alert alert-danger validationError">
+                  <div [hidden]="!SeatsNumber.errors['required']">
+                    Seats Number is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group p-10 row">
+              <div class="col-sm-3">
+                <label class="p-t-b-10">Function Date<span class="requiredStar">*</span></label>
+              </div>
+              <div class="col-sm-9">
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" id="FunctionDate" required name="FunctionDate" 
+                    [(ngModel)]="addFunctionForm.functionDate" ngbDatepicker #d="ngbDatepicker" #FunctionDate="ngModel">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                      <i class="fas fa-calendar"></i>
+                    </button>
+                  </div>
+                </div>
+                <div *ngIf="FunctionDate.errors && isSubmitted" class="alert alert-danger validationError">
+                  <div [hidden]="!FunctionDate.errors['required']">
+                    Function Date is required
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="table-footer">
+            <button class="btn btn-success" (click)="addFunction(functionForm.form.valid)">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

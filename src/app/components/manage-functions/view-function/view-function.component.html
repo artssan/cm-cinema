@@ -1,0 +1,40 @@
+<div class="container-xl">
+    <div class="table-responsive">
+      <div class="table-wrapper">
+        <div class="table-title">
+          <div class="row">
+            <div class="col-sm-6">
+              <h4><b>View Function</b></h4>
+            </div>
+            <div class="col-sm-6">
+              <a href="#" routerLink="/manage-functions" class="btn btn-success back"><i class='fas fa-arrow-circle-lef'></i>  Back</a>
+            </div>
+          </div>
+        </div>       
+        <table class="table table-striped table-hover table-bordered table-content">
+          <tbody>
+            <tr>
+                <td><label><b>Function ID</b></label></td>
+                <td><span>{{ functionDetail.functionId }}</span></td>
+            </tr>
+            <tr>
+                <td><label><b>Movie ID</b></label></td>
+                <td><span>{{ functionDetail.movieId }}</span></td>
+            </tr>
+            <tr>
+                <td><label><b>Price</b></label></td>
+                <td><span>{{ functionDetail.price }}</span></td>
+            </tr>
+            <tr>
+                <td><label><b>Seats Number</b></label></td>
+                <td><span>{{ functionDetail.seatsNumber }}</span></td>
+            </tr>
+            <tr>
+                <td><label><b>Function Date</b></label></td>
+                <td><span>{{ functionDetail.functionDate }}</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

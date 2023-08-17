@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'cm-cinema';
+  isAdmin: boolean = false;
+
+  switchToUser() {
+    this.isAdmin = false;
+  }
+
+  switchToAdmin() {
+    this.isAdmin = true;
+  }
 }

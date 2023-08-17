@@ -1,19 +1,100 @@
-<form [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="functionId">Function ID:</label>
-    <input type="number" formControlName="functionId" id="functionId">
+<div class="container-xl">
+  <div class="table-responsive">
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div class="col-sm-6">
+            <h4><b>Purchase Tickets</b></h4>
+          </div>
+        </div>
+      </div>
+      <form #orderForm="ngForm">
+        <div class="table-content">
+          <div class="form-group p-10 row">
+            <div class="col-sm-3">
+              <label for="MovieId" class="p-t-b-10">Select movie:<span class="requiredStar">*</span></label>
+            </div>
+            <div class="col-sm-9">
+              <select class="form-select" [(ngModel)]="selectedMovie" name="SelectMovie" (ngModelChange)="onMovieSelected($event)"
+                id="SelectMovie" #SelectMovie="ngModel" required>
+                <option selected>Select movie</option>
+                <option *ngFor="let movie of optionsMovie">{{ movie.title }}</option>
+              </select>
+              <div *ngIf="SelectMovie.errors && isSubmitted" class="alert alert-danger validationError">
+                <div [hidden]="!SelectMovie.errors['required']">
+                  Movie is required
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group p-10 row">
+            <div class="col-sm-3">
+              <label for="FunctionId" class="p-t-b-10">Select function:<span class="requiredStar">*</span></label>
+            </div>
+            <div class="col-sm-9">
+              <select class="form-select" [(ngModel)]="selectedFunction" name="SelectFunction" (ngModelChange)="onFunctionSelected($event)"
+                id="SelectFunction" #SelectFunction="ngModel" required>
+                <option selected>Select function</option>
+                <option *ngFor="let function of optionsFunction">{{ function.functionDate }}</option>
+              </select>
+              <div *ngIf="SelectFunction.errors && isSubmitted" class="alert alert-danger validationError">
+                <div [hidden]="!SelectFunction.errors['required']">
+                  Function is required
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group p-10 row">
+            <div class="col-sm-3">
+              <label for="NumberOfTickets" class="p-t-b-10">Number of tickets:<span class="requiredStar">*</span></label>
+            </div>
+            <div class="col-sm-9">
+              <input type="number" class="form-control" id="NumberOfTickets" required maxlength="100"
+                [(ngModel)]="addOrderForm.numberOfTickets" name="NumberOfTickets" #NumberOfTickets="ngModel">
+              <div *ngIf="NumberOfTickets.errors && isSubmitted" class="alert alert-danger validationError">
+                <div [hidden]="!NumberOfTickets.errors['required']">
+                  Number of Tickets is required
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group p-10 row">
+            <div class="col-sm-3">
+              <label for="Username" class="p-t-b-10">Username:<span class="requiredStar">*</span></label>
+            </div>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="Username" required maxlength="100"
+                [(ngModel)]="addOrderForm.username" name="Username" #Username="ngModel">
+              <div *ngIf="Username.errors && isSubmitted" class="alert alert-danger validationError">
+                <div [hidden]="!Username.errors['required']">
+                  Username is required
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group p-10 row">
+            <div class="col-sm-3">
+              <label class="p-t-b-10">Email:<span class="requiredStar">*</span></label>
+            </div>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="Email" required maxlength="255"
+                [(ngModel)]="addOrderForm.userEmail" name="Email" #Email="ngModel"
+                pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9]{2,3}$">
+              <div *ngIf="Email.errors && isSubmitted" class="alert alert-danger validationError">
+                <div [hidden]="!Email.errors['required']">
+                  Email is required
+                </div>
+                <div [hidden]="!Email.errors['touched'] && !Email.errors['pattern']">
+                  Email is invalid
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="table-footer">
+          <button class="btn btn-success" (click)="addOrder(orderForm.form.valid)">Submit</button>
+        </div>
+      </form>
+    </div>
   </div>
-  <div>
-    <label for="numberOfTickets">Amount of Tickets:</label>
-    <input type="number" formControlName="numberOfTickets" id="numberOfTickets">
-  </div>
-  <div>
-    <label for="username">Username:</label>
-    <input type="string" formControlName="username" id="username" readonly>
-  </div>
-  <div>
-    <label for="userEmail">Email:</label>
-    <input type="string" formControlName="userEmail" id="userEmail" readonly>
-  </div>
-  <button type="submit">Buy Tickets</button>
-</form>
+</div>

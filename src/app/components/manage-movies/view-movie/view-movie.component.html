@@ -1,0 +1,56 @@
+<div class="container-xl">
+    <div class="table-responsive">
+      <div class="table-wrapper">
+        <div class="table-title">
+          <div class="row">
+            <div class="col-sm-6">
+              <h4><b>View Movie</b></h4>
+            </div>
+            <div class="col-sm-6">
+              <a href="#" routerLink="/manage-movies" class="btn btn-success back"><i class='fas fa-arrow-circle-lef'></i>  Back</a>
+            </div>
+          </div>
+        </div>       
+        <table class="table table-striped table-hover table-bordered table-content">
+          <tbody>
+            <tr>
+                <td><label><b>Movie ID</b></label></td>
+                <td><span>{{ movieDetail.movieId }}</span></td>
+            </tr>
+            <tr>
+                <td><label><b>Title</b></label></td>
+                <td><span>{{ movieDetail.title }}</span></td>
+            </tr>
+            <tr>
+                <td><label><b>Year</b></label></td>
+                <td><span>{{ movieDetail.year }}</span></td>
+            </tr>
+            <tr>
+                <td><label><b>Genre</b></label></td>
+                <td><span>{{ movieDetail.genre }}</span></td>
+            </tr>
+            <tr>
+                <td><label><b>Director</b></label></td>
+                <td><span>{{ movieDetail.director }}</span></td>
+            </tr>
+            <tr>
+                <td><label><b>Cast</b></label></td>
+                <td><span>{{ movieDetail.cast }}</span></td>
+            </tr>
+            <tr>
+                <td><label><b>Description</b></label></td>
+                <td><span>{{ movieDetail.description }}</span></td>
+            </tr>
+            <tr>
+                <td><label><b>Poster Image URL</b></label></td>
+                <td><span>{{ movieDetail.posterImage }}</span></td>
+            </tr>
+            <tr>
+                <td><label><b>Background Image URL</b></label></td>
+                <td><span>{{ movieDetail.backgroundImage }}</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

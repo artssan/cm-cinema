@@ -19,11 +19,14 @@
                 <label for="MovieId" class="p-t-b-10">Movie Id<span class="requiredStar">*</span></label>
               </div>
               <div class="col-sm-9">
-                <input type="number" class="form-control" id="MovieId" required
-                  [(ngModel)]="addFunctionForm.movieId" name="MovieId" #MovieId="ngModel">
-                <div *ngIf="MovieId.errors && isSubmitted" class="alert alert-danger validationError">
-                  <div [hidden]="!MovieId.errors['required']">
-                    MovieId is required
+                <select class="form-select" [(ngModel)]="selectedMovie" name="SelectMovie"
+                  (ngModelChange)="onMovieSelected($event)" id="SelectMovie" #SelectMovie="ngModel" required>
+                  <option selected>Select movie</option>
+                  <option *ngFor="let movie of optionsMovie">{{ movie.title }}</option>
+                </select>
+                <div *ngIf="SelectMovie.errors && isSubmitted" class="alert alert-danger validationError">
+                  <div [hidden]="!SelectMovie.errors['required']">
+                    Movie is required
                   </div>
                 </div>
               </div>

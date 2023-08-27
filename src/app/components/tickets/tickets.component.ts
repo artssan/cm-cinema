@@ -27,6 +27,7 @@ export class TicketsComponent implements OnInit {
 
   selectedMovie: string = '';
   selectedFunction: string = '';
+  functionSeats: string = '';
 
   @ViewChild("orderForm")
   orderForm!: NgForm;
@@ -79,6 +80,7 @@ export class TicketsComponent implements OnInit {
     if (this.optionsFunction != null) {
       var func = this.optionsFunction.find(x => x.functionDate.toString() === this.selectedFunction);
       this.addOrderForm.functionId = func!.functionId;
+      this.functionSeats = 'Seats available: ' + func!.seatsNumber;
     }
   }
 }

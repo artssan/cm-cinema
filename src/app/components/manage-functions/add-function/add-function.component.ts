@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgbDateAdapter, NgbDateNativeAdapter, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateAdapter, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Function } from 'src/app/models/function.model';
+import { Movie } from 'src/app/models/movie.model';
 import { FunctionsService } from 'src/app/services/functions.service';
+import { MoviesService } from 'src/app/services/movies.service';
 
 providers: [{provide: NgbDateAdapter, useClass: NgbDateNativeAdapter}]
 
@@ -22,11 +24,14 @@ export class AddFunctionComponent implements OnInit{
     functionDate: ''
   };
 
+  selectedMovie: string = '';
+  optionsMovie: Movie[] | undefined;
+
   @ViewChild("functionForm")
   functionForm!: NgForm;
   isSubmitted: boolean = false;
 
-  constructor(private router: Router, private functionsService: FunctionsService, private toastr: ToastrService) { }
+  constructor(private router: Router, private functionsService: FunctionsService, private toastr: ToastrService, private moviesService: MoviesService) { }
 
   dateToString(date: any): string {
     if (date.month.toString().length == 1) {
@@ -41,7 +46,15 @@ export class AddFunctionComponent implements OnInit{
     return dateString;
   }
 
-  ngOnInit(): void {  }
+  ngOnInit(): void {  
+    this.getMovies();
+  }
+
+  getMovies(): void {
+    this.moviesService.getMovies().subscribe((movies) => {
+      this.optionsMovie = movies;
+    });
+  }
 
   addFunction(isValid: any) {
     this.isSubmitted = true;
@@ -63,5 +76,10 @@ export class AddFunctionComponent implements OnInit{
         }
       });
     }
+  }
+
+  onMovieSelected(event: any): void {
+    var movie = this.optionsMovie?.find(x => x.title === this.selectedMovie);
+    this.addFunctionForm.movieId = movie!.movieId;
   }
 }

@@ -53,16 +53,16 @@ export class ManageFunctionsComponent implements OnInit{
           this.toastr.success(data.message);
           setTimeout(() => {
             this.router.navigate(['/manage-functions']);
+            window.location.reload();
           }, 500);
         } else {
           this.toastr.error(data.message);
           setTimeout(() => {
             this.router.navigate(['/manage-functions']);
+            window.location.reload();
           }, 500);
         }
       }
     });
-
-    window.location.reload();
   }
 }

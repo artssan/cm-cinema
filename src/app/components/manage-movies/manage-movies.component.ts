@@ -53,16 +53,16 @@ export class ManageMoviesComponent implements OnInit {
           this.toastr.success(data.message);
           setTimeout(() => {
             this.router.navigate(['/manage-movies']);
+            window.location.reload();
           }, 500);
         } else {
           this.toastr.error(data.message);
           setTimeout(() => {
             this.router.navigate(['/manage-movies']);
+            window.location.reload();
           }, 500);
         }
       }
     });
-
-    window.location.reload();
   }
 }

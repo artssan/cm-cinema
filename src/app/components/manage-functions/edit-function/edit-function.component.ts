@@ -2,8 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs';
 import { Function } from 'src/app/models/function.model';
+import { Movie } from 'src/app/models/movie.model';
 import { FunctionsService } from 'src/app/services/functions.service';
+import { MoviesService } from 'src/app/services/movies.service';
 
 @Component({
   selector: 'app-edit-function',
@@ -25,8 +28,12 @@ export class EditFunctionComponent {
   isSubmitted: boolean = false;
   functionId: any;
 
+  optionsMovie: Movie[] | undefined;
+  selectedMovie: string = '';
+  movie: any;
+
   constructor(private toastr: ToastrService, private route: ActivatedRoute, private router: Router,
-    private functionsService: FunctionsService) { }
+    private functionsService: FunctionsService, private moviesService: MoviesService) { }
 
   dateToString(date: any): string {
     if (date.month.toString().length == 1) {
@@ -49,12 +56,29 @@ export class EditFunctionComponent {
     this.getFunctionById();
   }
 
-  getFunctionById() {
-    this.functionsService.getFunctionById(this.functionId).subscribe((data) => {
+  getFunctionById(): void {
+    this.functionsService.getFunctionById(this.functionId)
+      .pipe(finalize(() => {
+        this.getMovieById(this.editFunctionForm.movieId);
+      }))
+      .subscribe((data) => {
       if (data != null) {
         this.editFunctionForm = data;
         this.editFunctionForm.functionDate = this.stringToDateObject(this.editFunctionForm.functionDate);
       }
+    });
+  }
+
+  getMovieById(movieId: number): void { 
+    this.moviesService.getMovieById(movieId).subscribe(movie => {
+      this.movie = movie;
+      this.getMovies();
+    })
+  }
+
+  getMovies(): void {
+    this.moviesService.getMovies().subscribe((movies) => {
+      this.optionsMovie = movies.filter(x => x.movieId != this.movie.movieId);
     });
   }
 
@@ -78,5 +102,10 @@ export class EditFunctionComponent {
         }
       });
     }
+  }
+
+  onMovieSelected(event: any): void {
+    var movie = this.optionsMovie?.find(x => x.title === this.selectedMovie);
+    this.editFunctionForm.movieId = movie!.movieId;
   }
 }
